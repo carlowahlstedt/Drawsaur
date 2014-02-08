@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">Drawsaur</string>
-    <string name="hello_world">Welcome to Drawsaur!!</string>
-    <string name="menu_settings">Settings</string>
-    <string name="title_activity_main">Drawsaur</string>
-</resources>
