@@ -19,11 +19,13 @@
 
 package com.thewahlstedts.drawsaur;
 
+import android.annotation.SuppressLint;
+import android.os.Build;
 import android.os.Bundle;
 //import android.view.Menu;
 
+import android.view.View;
 import org.apache.cordova.*;
-
 import com.google.analytics.tracking.android.EasyTracker;
 
 public class HelloCordova extends CordovaActivity 
@@ -35,7 +37,6 @@ public class HelloCordova extends CordovaActivity
         super.init();
         // Set by <content src="index.html" /> in config.xml
         super.loadUrl(Config.getStartUrl());
-        //super.loadUrl("file:///android_asset/www/index.html")
     }
 
     @Override
@@ -50,6 +51,25 @@ public class HelloCordova extends CordovaActivity
       super.onStop();
       
       EasyTracker.getInstance().activityStop(this); // Add this method.
+    }
+    
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+    	super.onWindowFocusChanged(hasFocus);
+    	if (hasFocus && Build.VERSION.SDK_INT >= 18) {
+    		SetFullScreen();
+        }
+    }
+    
+    @SuppressLint({ "NewApi", "InlinedApi" })
+	void SetFullScreen(){
+        getActivity().getWindow().getDecorView().setSystemUiVisibility(
+            	View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+            	| View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+            	| View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+            	| View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+            	| View.SYSTEM_UI_FLAG_FULLSCREEN
+            	| View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
     }
 }
 
